@@ -15,6 +15,9 @@ class SearchDetailPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset('assets/images/test1.png'),
+            Image.asset('assets/images/test1.png'),
+            Image.asset('assets/images/test1.png'),
             const Icon(Icons.waving_hand,color: Colors.amber,size: 50,),
             Text(title, style: const TextStyle(fontSize: 20),),
           ],
