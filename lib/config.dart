@@ -15,8 +15,8 @@ class Config {
         return "DEVELOP";
       case Flavor.STAGING:
         return "STAGING";
-      case Flavor.RELEASE:
-        return "RELEASE";
+      case Flavor.PRODUCTION:
+        return "PRODUCTION";
       default:
         return "環境エラー";
     }

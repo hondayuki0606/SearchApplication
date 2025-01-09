@@ -4,7 +4,7 @@ import 'package:searchapplication/page/search_page.dart';
 import 'package:searchapplication/config.dart';
 
 void main() {
-  Config.environment = Flavor.RELEASE;
+  Config.environment = Flavor.PRODUCTION;
   runApp(
     ProviderScope(
       child: MyApp(),
