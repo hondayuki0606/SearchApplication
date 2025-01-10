@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum Flavor {
   DEVELOP,
   STAGING,
-  RELEASE,
+  PRODUCTION,
 }
 
 class Config {
