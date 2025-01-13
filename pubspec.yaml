@@ -13,6 +13,17 @@ dependencies:
   flutter_riverpod: ^2.1.1 # 追加
   cupertino_icons: ^1.0.8
 
+flutter_native_splash:
+  color: "#42a5f5"
+  image: assets/images/image01.png
+  android: true
+  ios: true
+  web: true
+  android_gravity: center
+  ios_content_mode: center
+  web_image_mode: center
+  fullscreen: true
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
