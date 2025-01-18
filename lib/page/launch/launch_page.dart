@@ -28,9 +28,7 @@ class LaunchPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: onSearch
-              ? _searchTextField(ref)
-              : const Text("Search"),
+          title: const Text("まずは性別から始めましょう"),
           actions: onSearch
               ? [
             IconButton(
