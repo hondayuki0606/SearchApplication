@@ -19,7 +19,7 @@ flutter_native_splash:
   color: '#add8e6'
   image: 'assets/images/logo.png'
   color_dark: '#262626'
-  image_dark: 'assets/images/splash.png'
+  image_dark: 'assets/images/logo.png'
   fullscreen: true
   android: true
   ios: true
