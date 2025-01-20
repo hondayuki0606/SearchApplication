@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/page/launch/launch_page.dart';
 import 'package:searchapplication/config.dart';
+import 'page/tutorial/flutter_overboard_page.dart';
 
 void main() {
   Config.environment = Flavor.DEVELOP;
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LaunchPage(),
+      home: FlutterOverboardPage(),
     );
   }
 }
