@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/page/search_detail_page.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 
 class FlutterOverboardPage extends StatelessWidget {
+  FlutterOverboardPage({super.key});
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
+    // Obtain shared preferences.
     return Scaffold(
+      key: _globalKey,
       appBar: AppBar(
         title: Text('FlutterOverboardPage'),
       ),
@@ -14,12 +17,18 @@ class FlutterOverboardPage extends StatelessWidget {
         pages: pages,
         showBullets: true,
         skipCallback: () {
-          // when user select SKIP
-          Navigator.pop(context);
+          // SKIPが完了したら次の画面に遷移
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => NextScreen()),
+          );
         },
         finishCallback: () {
-          // when user select NEXT
-          Navigator.pop(context);
+          // Onboardingが完了したら次の画面に遷移
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => NextScreen()),
+          );
         },
       ),
     );
@@ -51,4 +60,14 @@ class FlutterOverboardPage extends StatelessWidget {
         color: const Color(0xFF5886d6),
         doAnimateChild: true)
   ];
+}
+
+class NextScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Next Screen')),
+      body: Center(child: Text('This is the next screen!')),
+    );
+  }
 }
