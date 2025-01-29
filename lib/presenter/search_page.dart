@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/page/search_detail_page.dart';
+import 'package:searchapplication/presenter/search_detail_page.dart';
 
 final List<String> wordList = [
   "Hello",
@@ -17,8 +17,8 @@ final onSearchProvider = StateProvider((ref) => false);
 final StateProvider<List<int>> searchIndexListProvider =
 StateProvider((ref) => []);
 
-class LaunchPage extends ConsumerWidget {
-  const LaunchPage({Key? key}) : super(key: key);
+class SearchPage extends ConsumerWidget {
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,9 @@ class LaunchPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text("まずは性別から始めましょう"),
+          title: onSearch
+              ? _searchTextField(ref)
+              : const Text("Search"),
           actions: onSearch
               ? [
             IconButton(

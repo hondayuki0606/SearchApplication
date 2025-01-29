@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/page/launch/launch_page.dart';
+import 'package:searchapplication/presenter/launch/launch_page.dart';
 import 'package:searchapplication/config.dart';
 
 void main() {

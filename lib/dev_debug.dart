@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:searchapplication/config.dart';
 import 'package:searchapplication/repository/shared_preference_repository.dart';
-import 'page/tutorial/flutter_overboard_page.dart';
+import 'presenter/tutorial/flutter_overboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
