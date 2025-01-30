@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:searchapplication/presenter/search_page.dart';
 
 class FlutterOverboardPage extends StatelessWidget {
   FlutterOverboardPage({super.key});
@@ -21,14 +21,14 @@ class FlutterOverboardPage extends StatelessWidget {
           // SKIPが完了したら次の画面に遷移
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => NextScreen()),
+            MaterialPageRoute(builder: (context) => SearchPage()),
           );
         },
         finishCallback: () {
           // Onboardingが完了したら次の画面に遷移
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => NextScreen()),
+            MaterialPageRoute(builder: (context) => SearchPage()),
           );
         },
       ),
@@ -61,27 +61,4 @@ class FlutterOverboardPage extends StatelessWidget {
         color: const Color(0xFF5886d6),
         doAnimateChild: true)
   ];
-}
-
-class NextScreen extends ConsumerStatefulWidget {
-  const NextScreen({super.key});
-
-  @override
-  ConsumerState<NextScreen> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends ConsumerState<NextScreen> {
-  final _hitsujiCounterProvider = StateProvider((ref) => 0);
-  // SharedPreferenceRepository;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => ref
-            .read(_hitsujiCounterProvider.notifier)
-            .update((state) => state + 1),
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
 }
