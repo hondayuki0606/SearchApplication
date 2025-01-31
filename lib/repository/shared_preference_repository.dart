@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceRepository {
@@ -12,8 +11,12 @@ class SharedPreferenceRepository {
   Future<void> init() async {
     _prefs ??= await SharedPreferences.getInstance();
   }
-}
 
-// RiverPodで使う用
-final sharedPreferenceRepositoryProvider =
-Provider((ref) => SharedPreferenceRepository());
+  Future<void> setLunch() async {
+    _prefs!.setBool('init', true);
+  }
+
+  Future<bool?> getLunch() async {
+    return _prefs!.getBool('init');
+  }
+}

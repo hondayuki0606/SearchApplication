@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:searchapplication/presenter/search_page.dart';
+import 'package:searchapplication/repository/shared_preference_repository.dart';
 
 class FlutterOverboardPage extends StatelessWidget {
   FlutterOverboardPage({super.key});
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-
+  final sharedPreferenceRepositoryProvider = Provider((ref) => SharedPreferenceRepository());
   @override
   Widget build(BuildContext context) {
     // Obtain shared preferences.

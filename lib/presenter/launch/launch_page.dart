@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:searchapplication/presenter/search_detail_page.dart';
+import 'package:searchapplication/repository/shared_preference_repository.dart';
 
 final List<String> wordList = [
   "Hello",
@@ -15,7 +16,9 @@ final List<String> wordList = [
 
 final onSearchProvider = StateProvider((ref) => false);
 final StateProvider<List<int>> searchIndexListProvider =
-StateProvider((ref) => []);
+    StateProvider((ref) => []);
+final sharedPreferenceRepositoryProvider =
+    Provider((ref) => SharedPreferenceRepository());
 
 class LaunchPage extends ConsumerWidget {
   const LaunchPage({Key? key}) : super(key: key);
@@ -24,6 +27,12 @@ class LaunchPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final onSearchNotifier = ref.watch(onSearchProvider.notifier);
     final onSearch = ref.watch(onSearchProvider);
+    try {
+      SharedPreferenceRepository().setLunch();
+    } catch (e, s) {
+      print(s);
+    }
+
     final searchIndexListNotifier = ref.watch(searchIndexListProvider.notifier);
 
     return Scaffold(
@@ -31,20 +40,20 @@ class LaunchPage extends ConsumerWidget {
           title: const Text("まずは性別から始めましょう"),
           actions: onSearch
               ? [
-            IconButton(
-                onPressed: () {
-                  onSearchNotifier.state = false;
-                },
-                icon: const Icon(Icons.clear)),
-          ]
+                  IconButton(
+                      onPressed: () {
+                        onSearchNotifier.state = false;
+                      },
+                      icon: const Icon(Icons.clear)),
+                ]
               : [
-            IconButton(
-                onPressed: () {
-                  onSearchNotifier.state = true;
-                  searchIndexListNotifier.state = [];
-                },
-                icon: const Icon(Icons.search)),
-          ]),
+                  IconButton(
+                      onPressed: () {
+                        onSearchNotifier.state = true;
+                        searchIndexListNotifier.state = [];
+                      },
+                      icon: const Icon(Icons.search)),
+                ]),
       body: onSearch ? _searchListView(ref) : _defaultListView(),
     );
   }
