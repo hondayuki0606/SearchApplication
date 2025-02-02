@@ -28,6 +28,7 @@ class LaunchPage extends ConsumerWidget {
     final onSearchNotifier = ref.watch(onSearchProvider.notifier);
     final onSearch = ref.watch(onSearchProvider);
     try {
+      debugPrint('honda setLunch');
       SharedPreferenceRepository().setLunch();
     } catch (e, s) {
       print(s);

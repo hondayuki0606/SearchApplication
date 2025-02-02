@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceRepository {
@@ -13,10 +14,12 @@ class SharedPreferenceRepository {
   }
 
   Future<void> setLunch() async {
-    _prefs!.setBool('init', true);
+    debugPrint('honda setLunch');
+    _prefs?.setBool('init', true);
   }
 
-  Future<bool?> getLunch() async {
-    return _prefs!.getBool('init');
+  Future<bool> getLunch() async {
+    debugPrint('honda getLunch');
+    return _prefs?.getBool('init') ?? false;
   }
 }
