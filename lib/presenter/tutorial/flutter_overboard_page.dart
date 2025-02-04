@@ -31,34 +31,35 @@ class _FlutterOverboardPageState extends State<FlutterOverboardPage> {
         future: initFuture,
         builder: (context, snapshot) {
           debugPrint('honda snapshot $snapshot');
-          // if (snapshot.connectionState == ConnectionState.waiting) {
-          //   return Center(child: CircularProgressIndicator());
-          // } else if (snapshot.hasError) {
-          //   return Center(child: Text('Error: ${snapshot.error}'));
-          // } else if (snapshot.hasData) {
-          debugPrint('honda snapshot.data ${snapshot.data}');
-          final bool isLunch = snapshot.data ?? false; // nullの場合はfalseに設定
-          return !isLunch
-              ? OverBoard(
-                  pages: pages,
-                  showBullets: true,
-                  skipCallback: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) =>
-                          SearchPage()),
-                    );
-                  },
-                  finishCallback: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SearchPage()),
-                    );
-                  },
-                )
-              : SearchPage();
-          // }
-          // return Center(child: Text('No data available'));
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            debugPrint('honda snapshot.data ${snapshot.data}');
+            final bool isLunch = snapshot.data ?? false; // nullの場合はfalseに設定
+            return !isLunch
+                ? OverBoard(
+                    pages: pages,
+                    showBullets: true,
+                    skipCallback: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                      SharedPreferenceRepository().setLunch();
+                    },
+                    finishCallback: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchPage()),
+                      );
+                      SharedPreferenceRepository().setLunch();
+                    },
+                  )
+                : SearchPage();
+          }
+          return SearchPage();
         },
       ),
     );
