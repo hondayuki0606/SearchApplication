@@ -1,25 +1,21 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferenceRepository {
-  static SharedPreferences? _prefs;
+class SharedPreferenceRepository with ChangeNotifier {
+  bool _isLunch = false;
 
-  factory SharedPreferenceRepository() =>
-      SharedPreferenceRepository._internal();
+  bool get isLunch => _isLunch;
 
-  SharedPreferenceRepository._internal();
-
-  Future<void> init() async {
-    _prefs ??= await SharedPreferences.getInstance();
+  Future<void> getLunch() async {
+    final prefs = await SharedPreferences.getInstance();
+    _isLunch = prefs.getBool('isLunch') ?? false;
+    notifyListeners();
   }
 
   Future<void> setLunch() async {
-    debugPrint('honda setLunch');
-    _prefs?.setBool('init', true);
-  }
-
-  Future<bool> getLunch() async {
-    debugPrint('honda getLunch');
-    return _prefs?.getBool('init') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLunch', true);
+    _isLunch = true;
+    notifyListeners();
   }
 }

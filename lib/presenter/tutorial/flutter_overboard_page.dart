@@ -1,65 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
+import 'package:provider/provider.dart';
 import 'package:searchapplication/presenter/search_page.dart';
 import 'package:searchapplication/repository/shared_preference_repository.dart';
 
-class FlutterOverboardPage extends StatefulWidget {
-  const FlutterOverboardPage({super.key});
-
-  @override
-  _FlutterOverboardPageState createState() => _FlutterOverboardPageState();
-}
-
-class _FlutterOverboardPageState extends State<FlutterOverboardPage> {
-  late Future<bool> initFuture; // ここを Future<bool?> に変更
-
-  @override
-  void initState() {
-    super.initState();
-    // SharedPreferenceRepository().setLunch();
-    initFuture = SharedPreferenceRepository().getLunch();
-    debugPrint('honda ini $initFuture');
-  }
+class FlutterOverboardPage extends StatelessWidget {
+   FlutterOverboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Consumerを使って、SharedPreferenceRepositoryの状態を監視
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlutterOverboardPage'),
+        title: const Text('FlutterOverboardPage'),
       ),
-      body: FutureBuilder<bool?>(
-        future: initFuture,
-        builder: (context, snapshot) {
-          debugPrint('honda snapshot $snapshot');
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (snapshot.hasData) {
-            debugPrint('honda snapshot.data ${snapshot.data}');
-            final bool isLunch = snapshot.data ?? false; // nullの場合はfalseに設定
-            return !isLunch
-                ? OverBoard(
-                    pages: pages,
-                    showBullets: true,
-                    skipCallback: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SearchPage()),
-                      );
-                      SharedPreferenceRepository().setLunch();
-                    },
-                    finishCallback: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SearchPage()),
-                      );
-                      SharedPreferenceRepository().setLunch();
-                    },
-                  )
-                : SearchPage();
+      body: Consumer<SharedPreferenceRepository>(
+        builder: (context, repository, child) {
+          if (repository.isLunch) {
+            return const SearchPage();
+          } else {
+            return OverBoard(
+              pages: pages,
+              showBullets: true,
+              skipCallback: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SearchPage()),
+                );
+                repository.setLunch(); // skip時にもLunch設定
+              },
+              finishCallback: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SearchPage()),
+                );
+                repository.setLunch(); // finish時にもLunch設定
+              },
+            );
           }
-          return SearchPage();
         },
       ),
     );
@@ -81,7 +59,7 @@ class _FlutterOverboardPageState extends State<FlutterOverboardPage> {
       doAnimateImage: true,
     ),
     PageModel.withChild(
-      child: Padding(
+      child: const Padding(
         padding: EdgeInsets.only(bottom: 25.0),
         child: Text(
           "さあ、始めましょう",
