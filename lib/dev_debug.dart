@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart';
 import 'package:searchapplication/config.dart';
+import 'package:searchapplication/repository/shared_preference_repository.dart';
 import 'presenter/tutorial/flutter_overboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await SharedPreferenceRepository().init();
   Config.environment = Flavor.DEVELOP;
   runApp(
-    ProviderScope(
-      child: const MyApp(),
+    ProviderScope(  // ProviderScope でラップ
+      child: MyApp(),
     ),
   );
 }
@@ -26,7 +27,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FlutterOverboardPage(),
+      home: MultiProvider(  // MultiProvider を使って複数のプロバイダーを提供
+        providers: [
+          // ここで他の Provider を追加する
+          ListenableProvider(create: (_) => SharedPreferenceRepository()),
+          ListenableProvider(create: (_) => SharedPreferenceRepository()),
+        ],
+        child: FlutterOverboardPage(),  // SearchPage を子ウィジェットとして表示
+      ),
     );
   }
 }

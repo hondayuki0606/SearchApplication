@@ -16,7 +16,7 @@ class FlutterOverboardPage extends StatelessWidget {
       ),
       body: Consumer<SharedPreferenceRepository>(
         builder: (context, repository, child) {
-          if (repository.isLunch) {
+          if (repository.isFirstLaunch) {
             return const SearchPage();
           } else {
             return OverBoard(
