@@ -9,35 +9,31 @@ class FlutterOverboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // context から SharedPreferenceRepository のインスタンスを取得
+    final repository = Provider.of<SharedPreferenceRepository>(context);
     // Consumerを使って、SharedPreferenceRepositoryの状態を監視
     return Scaffold(
       appBar: AppBar(
         title: const Text('FlutterOverboardPage'),
       ),
-      body: Consumer<SharedPreferenceRepository>(
-        builder: (context, repository, child) {
-          if (repository.isFirstLaunch) {
-            return const SearchPage();
-          } else {
-            return OverBoard(
-              pages: pages,
-              showBullets: true,
-              skipCallback: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SearchPage()),
-                );
-                repository.setLunch(); // skip時にもLunch設定
-              },
-              finishCallback: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SearchPage()),
-                );
-                repository.setLunch(); // finish時にもLunch設定
-              },
-            );
-          }
+      body: repository.isFirstLaunch
+          ? const SearchPage()
+          : OverBoard(
+        pages: pages,
+        showBullets: true,
+        skipCallback: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const SearchPage()),
+          );
+          repository.setLunch(); // skip時にもLunch設定
+        },
+        finishCallback: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const SearchPage()),
+          );
+          repository.setLunch(); // finish時にもLunch設定
         },
       ),
     );
