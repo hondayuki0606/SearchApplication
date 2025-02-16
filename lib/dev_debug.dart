@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 import 'package:searchapplication/config.dart';
-import 'package:searchapplication/domain/first_launch_notifier.dart';
-import 'package:searchapplication/repository/shared_preference_repository.dart';
-import 'presenter/tutorial/flutter_overboard_page.dart';
+import 'package:searchapplication/presenter/search_page.dart';
+import 'presenter/tutorial/overboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,18 +23,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
+      initialRoute: '/overboard',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: MultiProvider(  // MultiProvider を使って複数のプロバイダーを提供
-      // providers: [
-      //   // ここで他の Provider を追加する
-      //   ListenableProvider(create: (_) => FirstLaunchNotifier()),
-      // ],
-      // child:
-      home: FlutterOverboardPage(), // SearchPage を子ウィジェットとして表示
-      // ),
+      routes: {
+        '/overboard': (context) => OverboardPage(),
+        '/search': (context) => SearchPage(),
+      },
     );
   }
 }

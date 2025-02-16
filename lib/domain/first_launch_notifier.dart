@@ -24,7 +24,7 @@ class FirstLaunchNotifier extends StateNotifier<bool> {
       // 非同期処理が完了するのを待つ
       final initialValue = await repository.getLunch();
       state = initialValue;  // 非同期処理が完了したらstateを更新
-      debugPrint('honda _init $state');
+      debugPrint('honda _init $state called');
     } catch (e) {
       debugPrint('honda _init error: $e');
       // エラーハンドリングが必要なら、状態をエラーメッセージなどに設定
@@ -38,7 +38,7 @@ class FirstLaunchNotifier extends StateNotifier<bool> {
     try {
       final lunch = await repository.getLunch();
       state = lunch;  // 状態を更新
-      debugPrint('honda getLunch $state');
+      debugPrint('honda getLunch $state called');
     } catch (e) {
       debugPrint('honda getLunch error: $e');
       // エラーハンドリング
