@@ -10,21 +10,31 @@ class OverboardPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(firstLaunchNotifier);
+    debugPrint("state $state");
 
+    // stateがtrueになったときに検索ページに遷移するようにする
+    if (state) {
+      // 画面遷移を遅延させるために、遷移するタイミングを少し遅らせる
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/search');
+      });
+
+      return const SizedBox(); // 遷移中は空のウィジェットを表示
+    }
+
+    // 初回起動時のOverBoard表示
     return Scaffold(
       appBar: AppBar(title: const Text("FlutterOverboardPage")),
-      body: !state
-          ? const SearchPage() // 初回起動ではなく、通常の検索ページを表示
-          : OverBoard(
+      body: OverBoard(
         pages: pages,
         showBullets: true,
         skipCallback: () {
           _updateLaunchFlag(ref);
-          Navigator.pushReplacementNamed(context, '/search');
+          _navigateToSearchPage(context);
         },
         finishCallback: () {
           _updateLaunchFlag(ref);
-          Navigator.pushReplacementNamed(context, '/search');
+          _navigateToSearchPage(context);
         },
       ),
     );
@@ -33,6 +43,13 @@ class OverboardPage extends ConsumerWidget {
   // 初回起動フラグを更新するための関数
   void _updateLaunchFlag(WidgetRef ref) {
     ref.read(firstLaunchNotifier.notifier).setLunch();
+  }
+
+  void _navigateToSearchPage(BuildContext context) {
+    // 画面遷移時にちらつきを防ぐため、pushReplacementではなく、Navigator.pushReplacementNamedを使う
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Navigator.pushReplacementNamed(context, '/search');
+    });
   }
 }
 

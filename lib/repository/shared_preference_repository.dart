@@ -1,27 +1,35 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceRepository {
-  late SharedPreferences _prefs; // SharedPreferences インスタンスを保持する変数
+  late SharedPreferences _prefs;
 
-  SharedPreferenceRepository() {
-    _initPrefs();
+  // 初期化処理を非同期で行う
+  Future<void> initialize() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
   // SharedPreferences のインスタンスを初期化するメソッド
   Future<void> _initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
+    // 初回のみインスタンス化
+    if (_prefs == null) {
+      _prefs = await SharedPreferences.getInstance();
+    }
   }
 
   // ランチ状態を取得する
   Future<bool> getLunch() async {
-    _prefs = await SharedPreferences.getInstance();
+    // _prefs が初期化されていることを確認
+    if (_prefs == null) {
+      await initialize();
+    }
     return _prefs.getBool('isFirstLaunch') ?? false;
-    // return isFirstLaunch;
   }
 
   // ランチ状態を設定する
   Future<void> setLunch() async {
-    _prefs = await SharedPreferences.getInstance();
+    if (_prefs == null) {
+      await initialize();
+    }
     await _prefs.setBool('isFirstLaunch', true);
   }
 }
