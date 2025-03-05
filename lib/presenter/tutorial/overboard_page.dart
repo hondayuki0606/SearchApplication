@@ -9,19 +9,19 @@ class OverboardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(firstLaunchNotifier);
-    debugPrint("state $state");
-
-    // stateがtrueになったときに検索ページに遷移するようにする
-    if (state) {
-      // 画面遷移を遅延させるために、遷移するタイミングを少し遅らせる
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushReplacementNamed(context, '/search');
-      });
-
-      return const SizedBox(); // 遷移中は空のウィジェットを表示
-    }
-
+    // final state = ref.watch(firstLaunchNotifier);
+    // debugPrint("state $state");
+    //
+    // // stateがtrueになったときに検索ページに遷移するようにする
+    // if (state) {
+    //   // 画面遷移を遅延させるために、遷移するタイミングを少し遅らせる
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     Navigator.pushReplacementNamed(context, '/search');
+    //   });
+    //
+    //   return const SizedBox(); // 遷移中は空のウィジェットを表示
+    // }
+    debugPrint('honda OverboardPage build');
     // 初回起動時のOverBoard表示
     return Scaffold(
       appBar: AppBar(title: const Text("FlutterOverboardPage")),
@@ -42,7 +42,7 @@ class OverboardPage extends ConsumerWidget {
 
   // 初回起動フラグを更新するための関数
   void _updateLaunchFlag(WidgetRef ref) {
-    ref.read(firstLaunchNotifier.notifier).setLunch();
+    // ref.read(firstLaunchNotifier.notifier).setLunch();
   }
 
   void _navigateToSearchPage(BuildContext context) {

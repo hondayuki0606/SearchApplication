@@ -19,9 +19,10 @@ class SharedPreferenceRepository {
   // ランチ状態を取得する
   Future<bool> getLunch() async {
     // _prefs が初期化されていることを確認
-    if (_prefs == null) {
-      await initialize();
-    }
+    // if (_prefs == null) {
+    //   await initialize();
+    // }
+    final _prefs = await SharedPreferences.getInstance();
     return _prefs.getBool('isFirstLaunch') ?? false;
   }
 
@@ -30,6 +31,6 @@ class SharedPreferenceRepository {
     if (_prefs == null) {
       await initialize();
     }
-    await _prefs.setBool('isFirstLaunch', true);
+    await _prefs.setBool('isFirstLaunch', false);
   }
 }
