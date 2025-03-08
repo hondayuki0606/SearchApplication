@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/presenter/search_page.dart';
-import 'package:searchapplication/domain/first_launch_notifier.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
+import 'package:searchapplication/core/notifiers/first_launch_checker_notifier.dart';
 
 class OverboardPage extends ConsumerWidget {
   const OverboardPage({super.key});
@@ -42,14 +41,12 @@ class OverboardPage extends ConsumerWidget {
 
   // 初回起動フラグを更新するための関数
   void _updateLaunchFlag(WidgetRef ref) {
-    // ref.read(firstLaunchNotifier.notifier).setLunch();
+    ref.read(firstLaunchCheckerNotifier.notifier).setLunch();
   }
 
   void _navigateToSearchPage(BuildContext context) {
     // 画面遷移時にちらつきを防ぐため、pushReplacementではなく、Navigator.pushReplacementNamedを使う
-    Future.delayed(const Duration(milliseconds: 300), () {
-      Navigator.pushReplacementNamed(context, '/search');
-    });
+    Navigator.pushReplacementNamed(context, '/search');
   }
 }
 

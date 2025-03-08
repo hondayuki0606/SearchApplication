@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/presenter/search_detail_page.dart';
+import 'package:searchapplication/features/search/search_detail_page.dart';
 
 final List<String> wordList = [
   "Hello",

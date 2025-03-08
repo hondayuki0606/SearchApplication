@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/presenter/search_detail_page.dart';
-import 'package:searchapplication/repository/shared_preference_repository.dart';
+import 'package:searchapplication/features/search/search_detail_page.dart';
+import 'package:searchapplication/core/data/repositories/shared_preference_repository.dart';
 
 // 単語リスト
 final List<String> wordList = [

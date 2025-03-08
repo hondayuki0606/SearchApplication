@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:searchapplication/config.dart';
-import 'package:searchapplication/presenter/search_page.dart';
-import 'package:searchapplication/domain/first_launch_notifier.dart';
-import 'presenter/tutorial/overboard_page.dart';
+import 'package:searchapplication/core/config.dart';
+import 'package:searchapplication/features/search/search_page.dart';
+import 'package:searchapplication/core/notifiers/first_launch_checker_notifier.dart';
+import 'features/tutorial/overboard_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,10 +22,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // `firstLaunchNotifier`の非同期処理を待つ
-    // final futureState = ref.watch(firstLaunchNotifier.future);
-    // final futureState = ref.watch(asyncBoolNotifierProvider.notifier).fetchData();
-    final futureState = ref.watch(asyncBoolNotifierProvider);
+    final futureState = ref.watch(firstLaunchCheckerNotifier);
     debugPrint('honda MyApp $futureState build');
     return MaterialApp(
       title: 'Flutter App',
