@@ -1,10 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:searchapplication/core/config.dart';
 import 'package:searchapplication/features/search/search_page.dart';
 import 'package:searchapplication/core/notifiers/first_launch_checker_notifier.dart';
-import 'features/tutorial/overboard_page.dart';
+import 'features/tutorial/tutorial_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +32,7 @@ class MyApp extends ConsumerWidget {
       home: futureState.when(
         // データが読み込まれるまで、ローディングインジケーターを表示
         data: (isFirstLaunch) {
-          return isFirstLaunch ? OverboardPage() : SearchPage();
+          return isFirstLaunch ? TutorialPage() : SearchPage();
         },
         loading: () {
           return Scaffold(
@@ -48,7 +47,7 @@ class MyApp extends ConsumerWidget {
         },
       ),
       routes: {
-        '/overboard': (context) => OverboardPage(),
+        '/overboard': (context) => TutorialPage(),
         '/search': (context) => SearchPage(),
       },
     );
