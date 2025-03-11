@@ -3,27 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:searchapplication/core/notifiers/first_launch_checker_notifier.dart';
 
-class OverboardPage extends ConsumerWidget {
-  const OverboardPage({super.key});
+class TutorialPage extends ConsumerWidget {
+  const TutorialPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final state = ref.watch(firstLaunchNotifier);
-    // debugPrint("state $state");
-    //
-    // // stateがtrueになったときに検索ページに遷移するようにする
-    // if (state) {
-    //   // 画面遷移を遅延させるために、遷移するタイミングを少し遅らせる
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     Navigator.pushReplacementNamed(context, '/search');
-    //   });
-    //
-    //   return const SizedBox(); // 遷移中は空のウィジェットを表示
-    // }
     debugPrint('honda OverboardPage build');
     // 初回起動時のOverBoard表示
     return Scaffold(
-      appBar: AppBar(title: const Text("FlutterOverboardPage")),
+      appBar: AppBar(title: const Text("チュートリアル")),
       body: OverBoard(
         pages: pages,
         showBullets: true,

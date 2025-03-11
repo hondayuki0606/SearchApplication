@@ -30,7 +30,7 @@ class SearchPage extends ConsumerWidget {
       appBar: AppBar(
           title: onSearch
               ? _searchTextField(ref)
-              : const Text("Search"),
+              : const Text("検索"),
           actions: onSearch
               ? [
             IconButton(
